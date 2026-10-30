@@ -28,7 +28,9 @@ compounds = Path("metadata/compounds.csv")
 taxonomy = Path("metadata/opioid_taxonomy.csv")
 for protocol in ("compound", "scaffold", "analogue"):
     samples, audit = load_curated_samples(
-        dataset, compounds, taxonomy,
+        dataset,
+        compounds,
+        taxonomy,
         require_scaffold=protocol in ("scaffold", "analogue"),
     )
     assignments_path = Path("results") / f"{protocol}_cv5_assignments.csv"
