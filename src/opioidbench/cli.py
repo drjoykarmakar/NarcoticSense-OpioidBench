@@ -522,6 +522,20 @@ def cmd_benchmark_baselines(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_benchmark_report(args: argparse.Namespace) -> int:
+    from opioidbench.experiments.reporting import generate_public_report
+
+    runs = {}
+    for spec in args.run:
+        protocol, separator, directory = spec.partition("=")
+        if not separator or not directory or protocol in runs:
+            raise ValueError("--run must be a unique protocol=directory pair")
+        runs[protocol] = Path(directory)
+    report = generate_public_report(runs, Path(args.output))
+    print(json.dumps({"protocols": list(report["protocols"]), "output": args.output}))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="opioidbench")
     parser.add_argument("--verbose", action="store_true")
@@ -771,6 +785,21 @@ def build_parser() -> argparse.ArgumentParser:
     baselines.add_argument("--seed", type=int, default=20260929)
     baselines.add_argument("--output", required=True)
     baselines.set_defaults(func=cmd_benchmark_baselines)
+
+    reporting = benchmark_sub.add_parser(
+        "report", help="Validate local baseline outputs and export aggregate-only metrics"
+    )
+    reporting.add_argument(
+        "--run",
+        action="append",
+        required=True,
+        metavar="PROTOCOL=DIRECTORY",
+        help="Repeat for each protocol; reads only summary.json and fold_metrics.csv",
+    )
+    reporting.add_argument(
+        "--output", required=True, help="Output directory (results/ recommended)"
+    )
+    reporting.set_defaults(func=cmd_benchmark_report)
 
     demo = sub.add_parser("demo", help="Run the synthetic first-milestone pipeline")
     demo.add_argument("--fixture", default="tests/fixtures/synthetic_eims.jdx")
