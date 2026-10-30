@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite this repository and the underlying data sources documented in the source registry."
+title: "NarcoticSense-OpioidBench"
+type: software
+version: "0.4.0"
+authors:
+  - name: "NarcoticSense-OpioidBench contributors"
+repository-code: "https://github.com/drjoykarmakar/NarcoticSense-OpioidBench"
+license: BSD-3-Clause

@@ -1,0 +1,5 @@
+protocol: compound
+folds: 5
+seed: 20260929
+near_identical_threshold: 0.9999
+purpose: primary pilot split with zero compound overlap

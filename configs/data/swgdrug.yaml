@@ -1,0 +1,5 @@
+source: swgdrug_eims
+input_path: null
+expected_sha256: null
+output_dir: data/raw/swgdrug_eims
+require_checksum: true

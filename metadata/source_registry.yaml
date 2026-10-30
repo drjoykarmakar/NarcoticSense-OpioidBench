@@ -1,0 +1,122 @@
+schema_version: 1
+sources:
+  swgdrug_eims:
+    display_name: "SWGDRUG Mass Spectral Library"
+    modality: "ei_ms"
+    source_url: "https://swgdrug.org/ms.htm"
+    version: "3.14"
+    version_date: "2025-01-22"
+    retrieval_date: "2026-09-29"
+    file_format: "JCAMP/HPJ and vendor formats"
+    license: null
+    terms_url: null
+    redistribution_status: "unresolved"
+    automatic_download_allowed: false
+    observed_archive_sha256: "da75d7c2e1383def05c691b94fbca37b83e244e9e333134b8a214c71905fd4a5"
+    observed_member_sha256: "c5703726b2a9a827bb0e4f737d1d3c995d324137d77c088948aa251f1d8e59fa"
+    observed_companion_sha256: "ab09287ff65ef993d01fffba9d393088b4f673c46cf13f02303d3b1e27bcdf61"
+    observed_exact_mass_archive_sha256: "cafebe04806cc90b73ecccf0822783f2ad4d87bbb21ac9f3496899c65c190bda"
+    observed_exact_mass_workbook_sha256: "17029ab729ede1c4f8aac6634b000d993b9292b0b3f42b6508198b1f814af911"
+    observed_exact_mass_pcdl_sha256: "6347be2a9ce90c6452deefaa6cbe61d542bb28e893349cbd906d68c368a9b1b5"
+    observed_agilent_archive_sha256: "5a41addddf725c78aa1ba61fc3bb2791e6d4a64e706703fabb9c44c1c3ede6be"
+    observed_agilent_header_sha256: "d218828d7bd5cf13685a5e4a94c48abb7a0d8eb42c5902ceded915d4f72c9044"
+    observed_nist_archive_sha256: "71bebaf8ada0de8a5ab3a357def73b9635b7f1d7f87f4acbe605253f88d86c97"
+    observed_nist_structure_sha256: "cafe7c2f5093c6ce7497202fc495f74c692634f5afe111fb2462d4831e0768af"
+    observed_shimadzu_archive_sha256: "097b7330236b5e55ebd27bc0c42336be1834d5b0db434e0b4b896ea8347b2204"
+    observed_changelog_sha256: "56b194f1557d12ec0a2ef5182f0d4ec0382f04efb8547eb7f3c03eee7fdac3a1"
+    observed_entry_list_sha256: null
+    citation_requirements: "Use SWGDRUG/NIST references documented by the source; exact citation set to be verified before a dataset release."
+    notes: >-
+      The public SWGDRUG page states that the library is available for download and provides
+      a usage disclaimer, but this milestone did not identify an explicit license granting
+      redistribution. Do not commit or redistribute raw spectra until terms are documented.
+  enfsi_dwg_eims:
+    display_name: "ENFSI Drugs Working Group Mass Spectral Library"
+    modality: "ei_ms"
+    source_url: "https://enfsi.eu/about-enfsi/structure/working-groups/drugs/"
+    version: "2025.11"
+    version_date: null
+    retrieval_date: "2026-09-29"
+    file_format: "JDX spectra plus entry-list XLSX; NIST/Shimadzu/Agilent formats also offered"
+    license: null
+    terms_url: "https://enfsi.eu/about-enfsi/structure/working-groups/drugs/"
+    redistribution_status: "restricted"
+    automatic_download_allowed: false
+    observed_archive_sha256: "90f5305c9bb431c2e562dd283a05e3fe001be57168d15a1a546f803f55de8946"
+    observed_member_sha256: "f7f96fc24dda46694e9383aea2b1d98025a6cd03f584479503a41213ea450146"
+    observed_companion_sha256: null
+    observed_exact_mass_archive_sha256: null
+    observed_exact_mass_workbook_sha256: null
+    observed_exact_mass_pcdl_sha256: null
+    observed_agilent_archive_sha256: null
+    observed_agilent_header_sha256: null
+    observed_nist_archive_sha256: null
+    observed_nist_structure_sha256: null
+    observed_shimadzu_archive_sha256: null
+    observed_changelog_sha256: null
+    observed_entry_list_sha256: "55cafbf460edc96e88c5a499a95d04c71b1ba34c5d144cdc8af1acc26bee471b"
+    citation_requirements: "Cite ENFSI/DWG and comply with the source Data Usage Agreement; approval may be required for redistribution/public release."
+    notes: >-
+      ENFSI states that its spectral-library data must not be shared, published, or released
+      publicly without prior approval, may not be redistributed for profit, and may not be
+      redistributed to third parties without prior approval. Keep source files and row-level
+      derivatives outside the open repository.
+  chebi_full:
+    display_name: "ChEBI SDF FULL bulk chemical metadata"
+    modality: "chemical_metadata"
+    source_url: "https://www.ebi.ac.uk/chebi/downloads"
+    version: null
+    version_date: null
+    retrieval_date: "2026-09-29"
+    file_format: "SDF FULL (.sdf.gz)"
+    license: "CC BY 4.0"
+    terms_url: "https://www.ebi.ac.uk/chebi/about"
+    redistribution_status: "allowed_with_attribution"
+    automatic_download_allowed: false
+    observed_archive_sha256: "9e180253b1d6b57c197a06e5ea97c500488935c85a2df9ffcea6339e56ab3451"
+    observed_member_sha256: null
+    observed_companion_sha256: null
+    observed_exact_mass_archive_sha256: null
+    observed_exact_mass_workbook_sha256: null
+    observed_exact_mass_pcdl_sha256: null
+    observed_agilent_archive_sha256: null
+    observed_agilent_header_sha256: null
+    observed_nist_archive_sha256: null
+    observed_nist_structure_sha256: null
+    observed_shimadzu_archive_sha256: null
+    observed_changelog_sha256: null
+    observed_entry_list_sha256: null
+    citation_requirements: "Cite ChEBI and provide CC BY 4.0 attribution for redistributed ChEBI-derived metadata."
+    notes: >-
+      User-supplied ChEBI FULL SDF snapshot used for the 2026-09-29 local resolution audit.
+      The compressed file contains 199,606 parsable ChEBI entries and has gzip-header mtime
+      2026-09-09T20:35:50Z. Exact release identity is anchored by SHA-256 rather than inferred
+      from the generic filename. The resolver streams the file locally and never requires
+      republishing the bulk payload.
+  synthetic_fixture:
+    display_name: "OpioidBench synthetic EI-MS fixture"
+    modality: "ei_ms"
+    source_url: null
+    version: "1"
+    version_date: "2026-09-29"
+    retrieval_date: "2026-09-29"
+    file_format: "JCAMP-DX"
+    license: "CC0-1.0"
+    terms_url: null
+    redistribution_status: "allowed"
+    automatic_download_allowed: false
+    observed_archive_sha256: null
+    observed_member_sha256: null
+    observed_companion_sha256: null
+    observed_exact_mass_archive_sha256: null
+    observed_exact_mass_workbook_sha256: null
+    observed_exact_mass_pcdl_sha256: null
+    observed_agilent_archive_sha256: null
+    observed_agilent_header_sha256: null
+    observed_nist_archive_sha256: null
+    observed_nist_structure_sha256: null
+    observed_shimadzu_archive_sha256: null
+    observed_changelog_sha256: null
+    observed_entry_list_sha256: null
+    citation_requirements: null
+    notes: "Artificial values created solely for parser/QC tests; not experimental spectra."

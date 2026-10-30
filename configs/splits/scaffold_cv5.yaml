@@ -1,0 +1,6 @@
+protocol: scaffold
+folds: 5
+seed: 20260929
+near_identical_threshold: 0.9999
+require_scaffold: true
+purpose: harder pilot split with zero exact Murcko scaffold overlap

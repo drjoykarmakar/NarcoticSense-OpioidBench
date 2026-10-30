@@ -1,0 +1,6 @@
+protocol: analogue
+folds: 5
+seed: 20260929
+near_identical_threshold: 0.9999
+require_scaffold: true
+purpose: strict pilot split with zero compound, exact-scaffold, and curated opioid analogue-lineage overlap

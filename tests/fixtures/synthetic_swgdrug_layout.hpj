@@ -1,0 +1,27 @@
+##TITLE=Library Entry 1001
+##JCAMPDX=Revision 4.10
+##DATA TYPE=MASS SPECTRUM
+##SAMPLE DESCRIPTION=Synthetic fixture only
+##NAMES=Synthetic Library
+##CAS NAME=Synthetic Compound Alpha
+##MOLFORM=C2H6O
+##CAS REGISTRY NO=000000-00-0
+##MW=46
+##NPOINTS=3
+##XYDATA=(XY..XY)
+    31       100
+    45        20
+    46        10
+##TITLE=Library Entry 1002
+##JCAMPDX=Revision 4.10
+##DATA TYPE=MASS SPECTRUM
+##SAMPLE DESCRIPTION=Synthetic fixture only
+##NAMES= Synthetic Library
+##CAS NAME=Synthetic Compound Beta
+##MOLFORM=C3H8O
+##CAS REGISTRY NO=000000-00-0
+##MW=60
+##NPOINTS=2
+##XYDATA=(XY..XY)
+    31        50
+    59       100

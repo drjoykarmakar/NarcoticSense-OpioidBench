@@ -1,0 +1,22 @@
+##TITLE=Synthetic Example A
+##JCAMP-DX=5.00
+##DATA TYPE=MASS SPECTRUM
+##ORIGIN=OpioidBench synthetic fixture; not experimental data
+##XUNITS=M/Z
+##YUNITS=RELATIVE INTENSITY
+##PEAK TABLE=(XY..XY)
+43,12 57,100 71,33
+85,4
+##END=
+##TITLE=Synthetic Example B
+##JCAMP-DX=5.00
+##DATA TYPE=MASS SPECTRUM
+##ORIGIN=OpioidBench synthetic fixture; not experimental data
+##XUNITS=M/Z
+##YUNITS=RELATIVE INTENSITY
+##PEAK TABLE=(XY..XY)
+41,8
+55,62
+69,100
+83,11
+##END=

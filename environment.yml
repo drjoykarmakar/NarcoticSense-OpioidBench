@@ -1,0 +1,11 @@
+name: opioidbench
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.11
+  - pip
+  - pyyaml>=6
+  - pytest>=8
+  - openpyxl>=3.1
+  - numpy>=1.26
+  - ruff>=0.6

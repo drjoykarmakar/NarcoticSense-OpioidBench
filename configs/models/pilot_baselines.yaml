@@ -1,0 +1,11 @@
+mz_max: 700
+preprocessing:
+  binning: nominal_integer_mz
+  intensity_transform: sqrt
+  normalization: l2
+models:
+  - spectral_1nn
+  - logistic_regression
+  - linear_svm
+  - random_forest
+seed: 20260929

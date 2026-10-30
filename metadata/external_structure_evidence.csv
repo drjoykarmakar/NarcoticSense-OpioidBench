@@ -1,0 +1,4 @@
+preferred_name,aliases,molecular_formula,canonical_smiles,inchikey,pubchem_cid,source,source_url
+Benzoylfentanyl,Phenyl fentanyl|phenylfentanyl,C26H28N2O,"C1CN(CCC1N(C2=CC=CC=C2)C(=O)C3=CC=CC=C3)CCC4=CC=CC=C4",BJPDWVPQDSVQKD-UHFFFAOYSA-N,139025450,PubChem,https://pubchem.ncbi.nlm.nih.gov/compound/139025450
+Etomethazene,5-Methyl Etodesnitazene|5-methyl etodesnitazene,C23H31N3O,CCOc3ccc(Cc2nc1cc(C)ccc1n2CCN(CC)CC)cc3,ZARKNPABJGEAOQ-UHFFFAOYSA-N,168310446,PubChem,https://pubchem.ncbi.nlm.nih.gov/compound/168310446
+Etonitazepipne,N-Piperidinyl Etonitazene,C23H28N4O3,CCOC1=CC=C(C=C1)CC2=NC3=C(N2CCN4CCCCC4)C=CC(=C3)[N+](=O)[O-],UMGXRAISFRUVKD-UHFFFAOYSA-N,162623834,PubChem,https://pubchem.ncbi.nlm.nih.gov/compound/162623834
