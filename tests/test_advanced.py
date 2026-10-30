@@ -4,7 +4,6 @@ import csv
 import json
 from pathlib import Path
 
-import numpy as np
 import pytest
 
 from opioidbench.experiments.advanced import evaluate_advanced
@@ -71,4 +70,4 @@ def test_advanced_rejects_single_class_fold(tmp_path: Path):
 def test_advanced_rejects_duplicate_spectrum_ids(tmp_path: Path):
     samples, folds = _samples()
     with pytest.raises(ValueError, match="Duplicate spectrum"):
-        evaluate_advanced(samples + [samples[0]], folds, output_dir=tmp_path)
+        evaluate_advanced([*samples, samples[0]], folds, output_dir=tmp_path)
