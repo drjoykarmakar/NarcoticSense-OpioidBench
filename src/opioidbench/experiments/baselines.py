@@ -34,7 +34,7 @@ def vectorize_eims(
     matrix = np.zeros((len(samples), mz_max + 1), dtype=np.float32)
     for row_idx, sample in enumerate(samples):
         for mz, intensity in sample.peaks:
-            bin_idx = int(round(mz))
+            bin_idx = round(mz)
             if 0 <= bin_idx <= mz_max:
                 matrix[row_idx, bin_idx] += max(0.0, float(intensity))
         if sqrt_transform:

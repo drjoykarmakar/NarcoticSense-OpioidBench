@@ -38,7 +38,7 @@ def _operational_opioid_analogue_group(
     mapping deliberately uses broad lineages so related opioid chemistry cannot be
     split across train/test merely because exact Murcko scaffolds differ.
     """
-    name = preferred_name.casefold().replace("α", "alpha")
+    name = preferred_name.casefold().replace("α", "alpha")  # noqa: RUF001
     family = opioid_family.casefold()
     sub = subfamily.casefold()
 
@@ -216,7 +216,7 @@ def _spectral_matrix(samples: list[BenchmarkSample], mz_max: int = 700) -> np.nd
     matrix = np.zeros((len(samples), mz_max + 1), dtype=np.float32)
     for row_idx, sample in enumerate(samples):
         for mz, intensity in sample.peaks:
-            bin_idx = int(round(mz))
+            bin_idx = round(mz)
             if 0 <= bin_idx <= mz_max:
                 matrix[row_idx, bin_idx] += float(intensity)
         norm = float(np.linalg.norm(matrix[row_idx]))
