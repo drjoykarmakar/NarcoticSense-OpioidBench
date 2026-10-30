@@ -255,10 +255,7 @@ def _label_row_from_evidence(
     if not matches:
         return "pending", (), ()
     statuses = {item.opioid_status for item, _ in matches}
-    if len(statuses) != 1:
-        label = "conflict"
-    else:
-        label = next(iter(statuses))
+    label = "conflict" if len(statuses) != 1 else next(iter(statuses))
     evidence_ids = tuple(sorted({item.evidence_id for item, _ in matches}))
     methods = tuple(sorted({method for _, method in matches}))
     return label, evidence_ids, methods
