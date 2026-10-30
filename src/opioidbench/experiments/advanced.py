@@ -82,12 +82,19 @@ def evaluate_advanced(
 
         models = {
             "rbf_svm": SVC(
-                C=1.0, kernel="rbf", gamma="scale",
-                class_weight="balanced", random_state=seed,
+                C=1.0,
+                kernel="rbf",
+                gamma="scale",
+                class_weight="balanced",
+                random_state=seed,
             ),
             "extra_trees": ExtraTreesClassifier(
-                n_estimators=500, max_features="sqrt", min_samples_leaf=1,
-                class_weight="balanced", random_state=seed, n_jobs=1,
+                n_estimators=500,
+                max_features="sqrt",
+                min_samples_leaf=1,
+                class_weight="balanced",
+                random_state=seed,
+                n_jobs=1,
             ),
         }
         for name, model in models.items():
@@ -98,21 +105,29 @@ def evaluate_advanced(
             else:
                 scores = np.asarray(model.predict_proba(x_test)[:, 1], dtype=float)
             metrics = _metrics(y_test, y_pred, scores)
-            fold_rows.append({
-                "model": name, "fold": fold, "n_train": len(train),
-                "n_test": len(test), **metrics,
-                "mean_nearest_train_cosine": float(np.mean(nearest_train_cosine)),
-            })
+            fold_rows.append(
+                {
+                    "model": name,
+                    "fold": fold,
+                    "n_train": len(train),
+                    "n_test": len(test),
+                    **metrics,
+                    "mean_nearest_train_cosine": float(np.mean(nearest_train_cosine)),
+                }
+            )
             for i, sample_idx in enumerate(test):
-                prediction_rows.append({
-                    "model": name, "fold": fold,
-                    "spectrum_id": samples[sample_idx].spectrum_id,
-                    "compound_id": samples[sample_idx].compound_id,
-                    "true_label": samples[sample_idx].label_name,
-                    "predicted_label": "opioid" if y_pred[i] else "non-opioid",
-                    "score": float(scores[i]),
-                    "nearest_train_cosine": float(nearest_train_cosine[i]),
-                })
+                prediction_rows.append(
+                    {
+                        "model": name,
+                        "fold": fold,
+                        "spectrum_id": samples[sample_idx].spectrum_id,
+                        "compound_id": samples[sample_idx].compound_id,
+                        "true_label": samples[sample_idx].label_name,
+                        "predicted_label": "opioid" if y_pred[i] else "non-opioid",
+                        "score": float(scores[i]),
+                        "nearest_train_cosine": float(nearest_train_cosine[i]),
+                    }
+                )
 
     aggregate: dict[str, dict[str, float]] = {}
     for name in ("rbf_svm", "extra_trees"):
@@ -126,8 +141,16 @@ def evaluate_advanced(
 
     output_dir.mkdir(parents=True, exist_ok=True)
     fold_fields = [
-        "model", "fold", "n_train", "n_test", *METRIC_NAMES,
-        "tn", "fp", "fn", "tp", "mean_nearest_train_cosine",
+        "model",
+        "fold",
+        "n_train",
+        "n_test",
+        *METRIC_NAMES,
+        "tn",
+        "fp",
+        "fn",
+        "tp",
+        "mean_nearest_train_cosine",
     ]
     with (output_dir / "fold_metrics.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fold_fields, lineterminator="\n")
@@ -135,8 +158,14 @@ def evaluate_advanced(
         writer.writerows(fold_rows)
 
     prediction_fields = [
-        "model", "fold", "spectrum_id", "compound_id", "true_label",
-        "predicted_label", "score", "nearest_train_cosine",
+        "model",
+        "fold",
+        "spectrum_id",
+        "compound_id",
+        "true_label",
+        "predicted_label",
+        "score",
+        "nearest_train_cosine",
     ]
     with (output_dir / "predictions.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=prediction_fields, lineterminator="\n")
