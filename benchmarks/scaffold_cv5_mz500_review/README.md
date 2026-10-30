@@ -13,6 +13,14 @@
 - Feature representation recorded in the supplied `summary.json`: nominal integer m/z bins, sqrt intensity, L2 normalization, **m/z maximum 500**. Do not combine this run with the frozen **m/z maximum 700** results elsewhere in the repository.
 - The source `summary.json` describes these as pilot results that should not be generalized to the source inventory.
 
+## Aggregate plots
+
+![Scaffold CV5 baseline balanced accuracy and AUROC with fold SD](scaffold_cv5_model_metrics.svg)
+
+![SWGDRUG taxonomy status, with most identities pending](taxonomy_coverage.svg)
+
+The taxonomy plot is based on the repository's SWGDRUG 3.14 conservative compound-identity audit (3,801 identities), not on the 257-spectrum scaffold cohort.
+
 ## Aggregate results (five-fold mean)
 
 | Model | Balanced accuracy | AUROC |
