@@ -63,9 +63,13 @@ def _validate_pubchem_record(
         return False, relation, "existing_structure_conflict"
 
     source_exact_mass = _float_or_none(row.get("source_monoisotopic_mass"))
-    if source_exact_mass is not None and record.exact_mass is not None:
-        if abs(source_exact_mass - record.exact_mass) > 0.0001 and relation == "exact_formula":
-            return False, relation, "source_exact_mass_mismatch"
+    if (
+        source_exact_mass is not None
+        and record.exact_mass is not None
+        and abs(source_exact_mass - record.exact_mass) > 0.0001
+        and relation == "exact_formula"
+    ):
+        return False, relation, "source_exact_mass_mismatch"
     return True, relation, None
 
 
