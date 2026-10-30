@@ -202,9 +202,7 @@ def resolve_compound_sources(
                     counts["errors"] += 1
                     error = f"{error} | PubChem:{exc}".strip(" |")
                 if pubchem_record is not None:
-                    ok, relation, validation_error = _validate_pubchem_record(
-                        row, pubchem_record
-                    )
+                    ok, relation, validation_error = _validate_pubchem_record(row, pubchem_record)
                     if ok:
                         counts["pubchem_resolved"] += 1
                         pubchem_cid = pubchem_record.pubchem_cid
@@ -244,9 +242,7 @@ def resolve_compound_sources(
             # molecular structure itself is unchanged. Preserve source-derived scaffold
             # fields when present, and calculate them only for newly filled structures
             # or legacy rows that lack scaffold metadata.
-            existing_scaffold_smiles = (
-                row.get("murcko_scaffold_smiles") or ""
-            ).strip()
+            existing_scaffold_smiles = (row.get("murcko_scaffold_smiles") or "").strip()
             existing_scaffold_id = (row.get("scaffold_id") or "").strip()
             if existing_smiles and existing_scaffold_id:
                 final_scaffold_smiles = existing_scaffold_smiles
@@ -331,8 +327,7 @@ def resolve_compound_sources(
     )
     counts["final_unique_scaffold_groups"] = len(final_scaffold_ids)
     counts["final_acyclic_structures"] = sum(
-        (row.get("scaffold_id") or "").strip() == "murcko:acyclic"
-        for row in final_structured_rows
+        (row.get("scaffold_id") or "").strip() == "murcko:acyclic" for row in final_structured_rows
     )
     counts["new_scaffold_groups"] = len(final_scaffold_ids - existing_scaffold_ids)
 
@@ -356,9 +351,7 @@ def resolve_compound_sources(
     ):
         if field not in output_fields:
             output_fields.append(field)
-    with (output_dir / "resolved_compounds.csv").open(
-        "w", newline="", encoding="utf-8"
-    ) as handle:
+    with (output_dir / "resolved_compounds.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=output_fields, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(resolved_rows)

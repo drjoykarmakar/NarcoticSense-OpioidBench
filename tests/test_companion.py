@@ -233,9 +233,7 @@ def test_agilent_header_rejects_comment_disagreement(tmp_path: Path) -> None:
     )
 
     archive_path = tmp_path / "agilent.zip"
-    header = b"\x00".join(
-        [b"SWGDRUG 3.", b"Exact Name", b"C2H6O", b"Different provenance"]
-    )
+    header = b"\x00".join([b"SWGDRUG 3.", b"Exact Name", b"C2H6O", b"Different provenance"])
     with zipfile.ZipFile(archive_path, "w") as archive:
         archive.writestr("SWGDRUG 3.14.L/HEADER", header)
     spectrum = _raw("Exact Name", "1")

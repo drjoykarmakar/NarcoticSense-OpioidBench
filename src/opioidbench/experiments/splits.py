@@ -7,7 +7,6 @@ import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 import numpy as np
 
@@ -26,7 +25,6 @@ class BenchmarkSample:
     structure_conflict: bool
     peaks: tuple[tuple[float, float], ...]
     analogue_group: str | None = None
-
 
 
 def _operational_opioid_analogue_group(
@@ -118,6 +116,7 @@ def _analogue_component_groups(samples: list[BenchmarkSample]) -> np.ndarray:
             dsu.union(idx, first)
     return np.asarray([f"component:{dsu.find(idx)}" for idx in range(len(samples))], dtype=object)
 
+
 def _sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -140,14 +139,10 @@ def load_curated_samples(
 ) -> tuple[list[BenchmarkSample], dict[str, int | str]]:
     """Join normalized spectra to curated taxonomy and resolved compound metadata."""
     compounds = {
-        row["compound_id"]: row
-        for row in _load_csv(compounds_path)
-        if row.get("compound_id")
+        row["compound_id"]: row for row in _load_csv(compounds_path) if row.get("compound_id")
     }
     taxonomy = {
-        row["compound_id"]: row
-        for row in _load_csv(taxonomy_path)
-        if row.get("compound_id")
+        row["compound_id"]: row for row in _load_csv(taxonomy_path) if row.get("compound_id")
     }
 
     samples: list[BenchmarkSample] = []
@@ -176,8 +171,7 @@ def load_curated_samples(
                 excluded_missing_scaffold += 1
                 continue
             peaks = tuple(
-                (float(peak["mz"]), float(peak["intensity"]))
-                for peak in record.get("peaks", [])
+                (float(peak["mz"]), float(peak["intensity"])) for peak in record.get("peaks", [])
             )
             analogue_group = None
             if label_name == "opioid":
@@ -207,9 +201,7 @@ def load_curated_samples(
         "included_opioid_spectra": sum(sample.label for sample in samples),
         "included_nonopioid_spectra": sum(1 - sample.label for sample in samples),
         "included_compounds": len({sample.compound_id for sample in samples}),
-        "included_scaffolds": len(
-            {sample.scaffold_id for sample in samples if sample.scaffold_id}
-        ),
+        "included_scaffolds": len({sample.scaffold_id for sample in samples if sample.scaffold_id}),
         "included_opioid_analogue_groups": len(
             {sample.analogue_group for sample in samples if sample.analogue_group}
         ),
@@ -255,9 +247,7 @@ def _fold_leakage_audit(
         train_scaffolds = {
             samples[idx].scaffold_id for idx in train_idx if samples[idx].scaffold_id
         }
-        test_scaffolds = {
-            samples[idx].scaffold_id for idx in test_idx if samples[idx].scaffold_id
-        }
+        test_scaffolds = {samples[idx].scaffold_id for idx in test_idx if samples[idx].scaffold_id}
         train_analogue_groups = {
             samples[idx].analogue_group
             for idx in train_idx
@@ -279,17 +269,15 @@ def _fold_leakage_audit(
         reports.append(
             {
                 "fold": fold,
-                "train_spectra": int(len(train_idx)),
-                "test_spectra": int(len(test_idx)),
+                "train_spectra": len(train_idx),
+                "test_spectra": len(test_idx),
                 "train_opioids": int(sum(samples[idx].label for idx in train_idx)),
                 "test_opioids": int(sum(samples[idx].label for idx in test_idx)),
                 "train_nonopioids": int(sum(1 - samples[idx].label for idx in train_idx)),
                 "test_nonopioids": int(sum(1 - samples[idx].label for idx in test_idx)),
                 "compound_overlap": len(train_compounds & test_compounds),
                 "scaffold_overlap": len(train_scaffolds & test_scaffolds),
-                "opioid_analogue_group_overlap": len(
-                    train_analogue_groups & test_analogue_groups
-                ),
+                "opioid_analogue_group_overlap": len(train_analogue_groups & test_analogue_groups),
                 "exact_spectrum_overlap": len(train_hashes & test_hashes),
                 "near_identical_cross_split_pairs": near_pairs,
                 "near_identical_threshold": near_identical_threshold,

@@ -169,14 +169,13 @@ def read_swgdrug_nist_structure_archive(
         ]
         if len(members) != 1:
             raise ValueError(
-                "Expected exactly one USRSTRUC.DB member in the NIST archive; "
-                f"found {len(members)}"
+                f"Expected exactly one USRSTRUC.DB member in the NIST archive; found {len(members)}"
             )
         member = members[0]
         payload = archive.read(member)
 
     member_sha256 = hashlib.sha256(payload).hexdigest()
-    blocks = re.split(br"\$\$\$\$\r?\n", payload)
+    blocks = re.split(rb"\$\$\$\$\r?\n", payload)
     entries: list[NistStructureEntry] = []
     for raw_block in blocks:
         if not raw_block.strip():
@@ -394,9 +393,7 @@ def align_swgdrug_nist_structures(
                     )
                     review.append(
                         {
-                            "source_record_id": (
-                                records[index].provenance.source_record_id or ""
-                            ),
+                            "source_record_id": (records[index].provenance.source_record_id or ""),
                             "nist_library_id": entry.library_id,
                             "reason": "exact_mass_delta_warning",
                             "match_method": method,

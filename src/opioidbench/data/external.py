@@ -159,9 +159,9 @@ def _load_supplemental_structures(
     """Load public structures indexed only by exact normalized name/alias and formula."""
     if path is None:
         return {}, 0
-    index: dict[
-        tuple[str, tuple[tuple[str, int], ...]], list[SupplementalStructure]
-    ] = defaultdict(list)
+    index: dict[tuple[str, tuple[tuple[str, int], ...]], list[SupplementalStructure]] = defaultdict(
+        list
+    )
     count = 0
     with path.open(newline="", encoding="utf-8") as handle:
         reader = csv.DictReader(handle)
@@ -191,15 +191,11 @@ def _load_supplemental_structures(
                 )
             features = calculate_structure_features(smiles)
             if features.inchikey.upper() != supplied_inchikey:
-                raise ValueError(
-                    f"Supplemental structure InChIKey mismatch for {preferred_name!r}"
-                )
+                raise ValueError(f"Supplemental structure InChIKey mismatch for {preferred_name!r}")
             source_formula = _formula_key(formula)
             calculated_formula = _formula_key(_structure_formula(features.canonical_smiles))
             if source_formula is None or source_formula != calculated_formula:
-                raise ValueError(
-                    f"Supplemental structure formula mismatch for {preferred_name!r}"
-                )
+                raise ValueError(f"Supplemental structure formula mismatch for {preferred_name!r}")
             item = SupplementalStructure(
                 preferred_name=preferred_name,
                 aliases=_split_pipe(raw.get("aliases")),
@@ -461,9 +457,7 @@ def audit_enfsi_external_candidates(
     return report, private_rows
 
 
-def write_private_external_candidate_manifest(
-    path: Path, rows: list[dict[str, Any]]
-) -> None:
+def write_private_external_candidate_manifest(path: Path, rows: list[dict[str, Any]]) -> None:
     """Write restricted local row-level candidate decisions; never a public artifact."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:

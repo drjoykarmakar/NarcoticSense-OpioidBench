@@ -334,9 +334,7 @@ def cmd_data_audit_enfsi_overlap(args: argparse.Namespace) -> int:
         swgdrug_records,
         near_identical_threshold=args.near_identical_threshold,
         entry_list_path=Path(args.entry_list) if args.entry_list else None,
-        normalized_swgdrug_path=(
-            Path(args.swgdrug_dataset) if args.swgdrug_dataset else None
-        ),
+        normalized_swgdrug_path=(Path(args.swgdrug_dataset) if args.swgdrug_dataset else None),
     )
     payload = report.to_dict()
     payload.update(
@@ -349,9 +347,7 @@ def cmd_data_audit_enfsi_overlap(args: argparse.Namespace) -> int:
             "enfsi_source_member_sha256": enfsi_provenance["member_sha256"],
             "swgdrug_source_file": swgdrug_path.name,
             "swgdrug_source_sha256": swgdrug_provenance["member_sha256"],
-            "entry_list_sha256": (
-                sha256_file(Path(args.entry_list)) if args.entry_list else None
-            ),
+            "entry_list_sha256": (sha256_file(Path(args.entry_list)) if args.entry_list else None),
             "restricted_source_data_in_aggregate_output": False,
             "interpretation": (
                 "Near-identical is a conservative spectral leakage-risk flag, not proof of "
@@ -561,7 +557,6 @@ def build_parser() -> argparse.ArgumentParser:
     validate.add_argument("--registry")
     validate.set_defaults(func=cmd_validate)
 
-
     overlap = data_sub.add_parser(
         "audit-enfsi-overlap",
         help=(
@@ -725,9 +720,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     priority.add_argument("--input", required=True, help="Resolved compound inventory CSV")
     priority.add_argument("--taxonomy", default="metadata/opioid_taxonomy.csv")
-    priority.add_argument(
-        "--output", default="results/private/opioid_taxonomy_priority_review.csv"
-    )
+    priority.add_argument("--output", default="results/private/opioid_taxonomy_priority_review.csv")
     priority.add_argument("--threshold", type=float, default=0.75)
     priority.set_defaults(func=cmd_metadata_prioritize_review)
 

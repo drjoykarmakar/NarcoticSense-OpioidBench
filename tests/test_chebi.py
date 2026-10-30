@@ -7,7 +7,6 @@ pytest.importorskip("rdkit")
 
 from opioidbench.chemistry.chebi import iter_chebi_sdf, resolve_chebi_compound_table
 
-
 SDF = """ethanol
   ChEBI
 

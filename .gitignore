@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+/build/
+/dist/
+.venv/
+venv/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Secrets
+.env
+*.pem
+*.key
+
+# Research data/artifacts: keep documentation, not generated payloads
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/external/*
+!data/external/.gitkeep
+results/*
+!results/README.md
+figures/*
+!figures/.gitkeep
+
+# Models/caches
+/models/
+/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.joblib
+.cache/
+
+# Defense-in-depth: do not accidentally stage source libraries or release archives
+*.whl
+*.zip
+*.sdf
+*.sdf.gz
+*.cdb
+*.xlsx
+*.msp
+*.jdx
+*.JDX
+*.hpj
+*.HPJ
+!tests/fixtures/*.jdx
+!tests/fixtures/*.hpj

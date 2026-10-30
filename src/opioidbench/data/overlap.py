@@ -92,9 +92,9 @@ def _sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def read_jcamp_source(path: Path, *, source: str, source_version: str) -> tuple[
-    list[RawSpectrum], dict[str, str | None]
-]:
+def read_jcamp_source(
+    path: Path, *, source: str, source_version: str
+) -> tuple[list[RawSpectrum], dict[str, str | None]]:
     """Read a JCAMP/JDX file or a single-member ZIP without persisting restricted data."""
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -222,8 +222,7 @@ def _quantiles(values: list[float]) -> dict[str, float]:
     np = _load_numpy()
     points = (0.0, 0.05, 0.25, 0.5, 0.75, 0.95, 1.0)
     return {
-        f"q{int(point * 100):02d}": round(float(np.quantile(values, point)), 9)
-        for point in points
+        f"q{int(point * 100):02d}": round(float(np.quantile(values, point)), 9) for point in points
     }
 
 
@@ -244,9 +243,9 @@ def _metadata_match_candidates(
         }
         for name in names:
             if isinstance(name, str) and name.strip():
-                index[
-                    (_normalize_name(name), record.get("molecular_formula"), rounded_weight)
-                ].add(str(record.get("compound_id") or record.get("spectrum_id") or ""))
+                index[(_normalize_name(name), record.get("molecular_formula"), rounded_weight)].add(
+                    str(record.get("compound_id") or record.get("spectrum_id") or "")
+                )
 
     candidates: list[set[str]] = []
     for entry in entries:
@@ -321,9 +320,7 @@ def audit_enfsi_spectral_overlap(
     best_indices, best_scores = _cosine_best_matches(enfsi_spectra, swgdrug_spectra)
     near_flags = [score >= near_identical_threshold for score in best_scores]
     threshold_counts = {
-        f"{threshold:.5f}".rstrip("0").rstrip("."): sum(
-            score >= threshold for score in best_scores
-        )
+        f"{threshold:.5f}".rstrip("0").rstrip("."): sum(score >= threshold for score in best_scores)
         for threshold in DEFAULT_OVERLAP_THRESHOLDS
     }
 
@@ -429,14 +426,10 @@ def audit_enfsi_spectral_overlap(
             metadata_status_counts.get("unique", 0) if metadata_candidates is not None else None
         ),
         ambiguous_metadata_entries=(
-            metadata_status_counts.get("ambiguous", 0)
-            if metadata_candidates is not None
-            else None
+            metadata_status_counts.get("ambiguous", 0) if metadata_candidates is not None else None
         ),
         unmatched_metadata_entries=(
-            metadata_status_counts.get("unmatched", 0)
-            if metadata_candidates is not None
-            else None
+            metadata_status_counts.get("unmatched", 0) if metadata_candidates is not None else None
         ),
         near_identical_high_confidence_metadata_matched=(
             near_metadata_status_counts.get("unique", 0)

@@ -100,9 +100,7 @@ def read_enfsi_entry_list(path: Path) -> list[ENFSIEntry]:
                 source_index=parsed_index,
                 name=str(name).strip(),
                 formula=(
-                    str(formula).strip()
-                    if formula is not None and str(formula).strip()
-                    else None
+                    str(formula).strip() if formula is not None and str(formula).strip() else None
                 ),
                 molecular_weight=parsed_weight,
             )
@@ -199,9 +197,7 @@ def audit_enfsi_entry_list(
         else:
             unmatched_entries += 1
 
-    exact_rows = Counter(
-        (entry.name, entry.formula, entry.molecular_weight) for entry in entries
-    )
+    exact_rows = Counter((entry.name, entry.formula, entry.molecular_weight) for entry in entries)
     return ENFSICrosscheckReport(
         enfsi_entries=len(entries),
         enfsi_unique_names=len({entry.name for entry in entries}),

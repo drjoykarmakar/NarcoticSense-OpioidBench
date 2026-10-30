@@ -276,9 +276,7 @@ def validate_dataset(spectra: list[RawSpectrum]) -> tuple[list[ValidatedSpectrum
                     details={
                         "compound_id": compound_id,
                         "names": sorted(names),
-                        "source_record_ids": [
-                            item.provenance.source_record_id for item in group
-                        ],
+                        "source_record_ids": [item.provenance.source_record_id for item in group],
                     },
                 )
             )
@@ -366,9 +364,7 @@ def normalize_spectrum(spectrum: ValidatedSpectrum) -> NormalizedSpectrumRecord:
         canonical_smiles=metadata.get("NIST_STRUCTURE_CANONICAL_SMILES") or None,
         inchikey=metadata.get("NIST_STRUCTURE_INCHIKEY") or None,
         structure_source=(
-            "swgdrug_nist_usrstruc"
-            if metadata.get("NIST_STRUCTURE_CANONICAL_SMILES")
-            else None
+            "swgdrug_nist_usrstruc" if metadata.get("NIST_STRUCTURE_CANONICAL_SMILES") else None
         ),
         structure_source_record_id=metadata.get("NIST_STRUCTURE_LIBRARY_ID") or None,
         structure_match_method=metadata.get("NIST_STRUCTURE_MATCH_METHOD") or None,

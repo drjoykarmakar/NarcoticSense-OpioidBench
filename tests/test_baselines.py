@@ -11,9 +11,12 @@ def test_baselines_run_on_small_separable_fixture(tmp_path: Path):
         label = 1 if i % 2 else 0
         peak = 200.0 if label else 50.0
         sample = BenchmarkSample(
-            spectrum_id=f"sp{i}", compound_id=f"c{i}", label=label,
+            spectrum_id=f"sp{i}",
+            compound_id=f"c{i}",
+            label=label,
             label_name="opioid" if label else "non-opioid",
-            scaffold_id=f"s{i}", structure_conflict=False,
+            scaffold_id=f"s{i}",
+            structure_conflict=False,
             peaks=((peak, 100.0),),
         )
         samples.append(sample)

@@ -254,9 +254,7 @@ def curate_taxonomy_from_evidence(
         families = {item.opioid_family for item, _ in matches if item.opioid_family}
         subfamilies = {item.subfamily for item, _ in matches if item.subfamily}
         sources = {item.evidence_source for item, _ in matches if item.evidence_source}
-        sources.update(
-            item.identity_source for item, _ in matches if item.identity_source
-        )
+        sources.update(item.identity_source for item, _ in matches if item.identity_source)
         sources = sorted(sources)
         evidence_ids = sorted({item.evidence_id for item, _ in matches})
         family = next(iter(families)) if len(families) == 1 else " | ".join(sorted(families))
@@ -286,9 +284,7 @@ def curate_taxonomy_from_evidence(
 
     taxonomy_output.parent.mkdir(parents=True, exist_ok=True)
     with taxonomy_output.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle, fieldnames=list(REQUIRED_COLUMNS), lineterminator="\n"
-        )
+        writer = csv.DictWriter(handle, fieldnames=list(REQUIRED_COLUMNS), lineterminator="\n")
         writer.writeheader()
         writer.writerows(taxonomy_rows)
 

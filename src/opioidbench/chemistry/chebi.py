@@ -6,9 +6,10 @@ import csv
 import gzip
 import re
 from collections import defaultdict
+from collections.abc import Iterable, Iterator
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Iterable, Iterator, TextIO
+from typing import Any, TextIO
 
 from opioidbench.chemistry.identifiers import (
     normalize_cas,
@@ -141,9 +142,7 @@ def _entry_from_properties(properties: dict[str, tuple[str, ...]]) -> ChEBIEntry
 
     cas_numbers: set[str] = set()
     for key, values in properties.items():
-        if key in {"CAS", "CAS REGISTRY NUMBER", "CAS REGISTRY NUMBERS"} or key.startswith(
-            "CAS "
-        ):
+        if key in {"CAS", "CAS REGISTRY NUMBER", "CAS REGISTRY NUMBERS"} or key.startswith("CAS "):
             for value in values:
                 for token in _CAS_TOKEN_RE.findall(value):
                     normalized = normalize_cas(token)
@@ -326,9 +325,7 @@ def select_chebi_match(
 ) -> ChEBIMatch:
     """Select only a unique, consistency-checked highest-confidence ChEBI candidate."""
     compound_id = row.get("compound_id", "")
-    accepted: list[
-        tuple[int, ChEBIEntry, tuple[str, ...], str | None, str | None, str | None]
-    ] = []
+    accepted: list[tuple[int, ChEBIEntry, tuple[str, ...], str | None, str | None, str | None]] = []
     errors: list[str] = []
     for entry, methods in candidates:
         ok, smiles, inchikey, formula_relation, error = _validate_chebi_candidate(
@@ -371,9 +368,7 @@ def select_chebi_match(
         )
 
     _, entry, methods, smiles, inchikey, formula_relation = top[0]
-    method = "+".join(
-        name for name in ("inchikey", "cas", "name") if name in set(methods)
-    )
+    method = "+".join(name for name in ("inchikey", "cas", "name") if name in set(methods))
     return ChEBIMatch(
         compound_id=compound_id,
         status="resolved",

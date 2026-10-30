@@ -11,7 +11,6 @@ import numpy as np
 
 from opioidbench.experiments.splits import BenchmarkDependencyError, BenchmarkSample
 
-
 METRIC_NAMES = (
     "accuracy",
     "balanced_accuracy",
@@ -75,9 +74,7 @@ def _metrics(y_true: np.ndarray, y_pred: np.ndarray, score: np.ndarray) -> dict[
         "f1": float(f1_score(y_true, y_pred, zero_division=0)),
         "mcc": float(matthews_corrcoef(y_true, y_pred)),
         "auroc": (
-            float(roc_auc_score(y_true, score))
-            if len(set(y_true.tolist())) == 2
-            else math.nan
+            float(roc_auc_score(y_true, score)) if len(set(y_true.tolist())) == 2 else math.nan
         ),
         "average_precision": (
             float(average_precision_score(y_true, score))
@@ -127,9 +124,7 @@ def evaluate_baselines(
         ) from exc
 
     missing = [
-        sample.spectrum_id
-        for sample in samples
-        if sample.spectrum_id not in fold_by_spectrum
+        sample.spectrum_id for sample in samples if sample.spectrum_id not in fold_by_spectrum
     ]
     if missing:
         raise ValueError(f"Fold assignment is missing {len(missing)} curated spectrum(s)")
@@ -195,8 +190,8 @@ def evaluate_baselines(
                 {
                     "model": model_name,
                     "fold": fold,
-                    "n_train": int(len(train_idx)),
-                    "n_test": int(len(test_idx)),
+                    "n_train": len(train_idx),
+                    "n_test": len(test_idx),
                     **metrics,
                 }
             )

@@ -8,10 +8,11 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from datetime import date
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from opioidbench.chemistry.identifiers import normalize_cas
 from opioidbench.chemistry.structures import calculate_structure_features
@@ -49,7 +50,7 @@ class MetadataCache:
         self.root = root
 
     def _path(self, source: str, query_type: str, query: str) -> Path:
-        digest = hashlib.sha256(f"{source}|{query_type}|{query}".encode("utf-8")).hexdigest()
+        digest = hashlib.sha256(f"{source}|{query_type}|{query}".encode()).hexdigest()
         return self.root / source / f"{digest}.json"
 
     def get(self, source: str, query_type: str, query: str) -> dict[str, Any] | None:
@@ -164,9 +165,7 @@ class PubChemResolver:
                 f"PubChem registry-number query {query!r} returned {count} CIDs; refusing to guess"
             )
         cid = cids[0]
-        properties = (
-            "SMILES,ConnectivitySMILES,InChIKey,MolecularFormula,MolecularWeight,ExactMass"
-        )
+        properties = "SMILES,ConnectivitySMILES,InChIKey,MolecularFormula,MolecularWeight,ExactMass"
         url = f"{PUBCHEM_PUG_REST}/compound/cid/{cid}/property/{properties}/JSON"
         payload = self._request_json(url)
         properties_list = (payload or {}).get("PropertyTable", {}).get("Properties", [])

@@ -5,7 +5,7 @@ from __future__ import annotations
 import csv
 import json
 from collections import Counter, defaultdict
-from dataclasses import asdict, replace
+from dataclasses import replace
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -88,11 +88,7 @@ def _compound_rows(records: list[NormalizedSpectrumRecord]) -> list[dict[str, An
             {item.structure_source for item in group if item.structure_source}
         )
         structure_relations = sorted(
-            {
-                item.structure_formula_relation
-                for item in group
-                if item.structure_formula_relation
-            }
+            {item.structure_formula_relation for item in group if item.structure_formula_relation}
         )
         rows.append(
             {
@@ -101,24 +97,16 @@ def _compound_rows(records: list[NormalizedSpectrumRecord]) -> list[dict[str, An
                 "aliases": " | ".join(raw_names),
                 "cas": cas_values[0] if len(cas_values) == 1 else "",
                 "molecular_formula": formulas[0] if len(formulas) == 1 else "",
-                "source_monoisotopic_mass": (
-                    exact_masses[0] if len(exact_masses) == 1 else ""
-                ),
+                "source_monoisotopic_mass": (exact_masses[0] if len(exact_masses) == 1 else ""),
                 "spectrum_count": len(group),
                 "name_conflict": len(canonical_names) > 1,
                 "formula_conflict": len(formulas) > 1,
                 "exact_mass_conflict": len(exact_masses) > 1,
                 "inchikey": inchikeys[0] if len(inchikeys) == 1 else "",
-                "canonical_smiles": (
-                    canonical_smiles[0] if len(canonical_smiles) == 1 else ""
-                ),
+                "canonical_smiles": (canonical_smiles[0] if len(canonical_smiles) == 1 else ""),
                 "scaffold_id": scaffold_ids[0] if len(scaffold_ids) == 1 else "",
-                "murcko_scaffold_smiles": (
-                    scaffold_smiles[0] if len(scaffold_smiles) == 1 else ""
-                ),
-                "structure_source": (
-                    structure_sources[0] if len(structure_sources) == 1 else ""
-                ),
+                "murcko_scaffold_smiles": (scaffold_smiles[0] if len(scaffold_smiles) == 1 else ""),
+                "structure_source": (structure_sources[0] if len(structure_sources) == 1 else ""),
                 "structure_formula_relation": " | ".join(structure_relations),
                 "structure_conflict": len(canonical_smiles) > 1,
                 "structured_spectrum_count": sum(
@@ -152,8 +140,7 @@ def _write_companion_review(path: Path, records: list[NormalizedSpectrumRecord])
             "new_in_source_version": record.new_in_source_version or "",
         }
         for record in records
-        if record.compound_name_resolution
-        and record.compound_name_resolution != "exact"
+        if record.compound_name_resolution and record.compound_name_resolution != "exact"
     ]
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -239,9 +226,7 @@ def _audit_payload(
 ) -> dict[str, Any]:
     compound_ids = {record.compound_id for record in records}
     compounds_with_structures = {
-        record.compound_id
-        for record in records
-        if record.canonical_smiles and record.inchikey
+        record.compound_id for record in records if record.canonical_smiles and record.inchikey
     }
     compound_structure_sets: dict[str, set[str]] = defaultdict(set)
     compound_scaffold_sets: dict[str, set[str]] = defaultdict(set)
@@ -282,14 +267,10 @@ def _audit_payload(
     scaffold_ids = {record.scaffold_id for record in spectra_with_structures if record.scaffold_id}
     taxonomy_counts = _taxonomy_counts(taxonomy)
     companion_relations = Counter(
-        record.compound_name_resolution
-        for record in records
-        if record.compound_name_resolution
+        record.compound_name_resolution for record in records if record.compound_name_resolution
     )
     new_source_versions = Counter(
-        record.new_in_source_version
-        for record in records
-        if record.new_in_source_version
+        record.new_in_source_version for record in records if record.new_in_source_version
     )
     exact_mass_records = [
         record for record in records if record.source_monoisotopic_mass is not None
@@ -312,17 +293,11 @@ def _audit_payload(
         "number_spectra": len(records),
         "number_unique_compounds": len(compound_ids),
         "number_compounds_with_structures": len(compounds_with_structures),
-        "number_compounds_with_unambiguous_structures": len(
-            unambiguous_structure_compounds
-        ),
-        "number_compounds_with_structure_conflicts": len(
-            conflicting_structure_compounds
-        ),
+        "number_compounds_with_unambiguous_structures": len(unambiguous_structure_compounds),
+        "number_compounds_with_structure_conflicts": len(conflicting_structure_compounds),
         "number_spectra_with_structures": len(spectra_with_structures),
         "number_unique_murcko_scaffolds": len(scaffold_ids),
-        "number_unique_unambiguous_compound_scaffolds": len(
-            unambiguous_compound_scaffolds
-        ),
+        "number_unique_unambiguous_compound_scaffolds": len(unambiguous_compound_scaffolds),
         "number_acyclic_structured_spectra": sum(
             record.scaffold_id == "murcko:acyclic" for record in spectra_with_structures
         ),
@@ -350,9 +325,7 @@ def _audit_payload(
         "source_comment_full_records": source_comment_full_records,
         "source_comment_relation_counts": dict(sorted(source_comment_relations.items())),
         "source_comment_extended_records": source_comment_relations.get("hpj_truncated", 0),
-        "exact_mass_nominal_weight_rounding_mismatch_records": len(
-            nominal_mass_mismatches
-        ),
+        "exact_mass_nominal_weight_rounding_mismatch_records": len(nominal_mass_mismatches),
         **taxonomy_counts,
         "taxonomy_complete": False,
     }
@@ -482,10 +455,7 @@ def build_dataset(
         "dataset_version": dataset_version,
         "creation_date": date.today().isoformat(),
         "source_versions": sorted(
-            {
-                f"{record.source}:{record.source_version or 'unknown'}"
-                for record in normalized
-            }
+            {f"{record.source}:{record.source_version or 'unknown'}" for record in normalized}
         ),
         "source_file": source_file.name,
         "source_file_sha256": source_file_sha256,
@@ -535,9 +505,7 @@ def build_dataset(
             "quality_control_summary": qc_md_path.name,
             "compound_inventory": compounds_path.name,
             "dataset_audit": audit_path.name,
-            "companion_name_review": (
-                companion_review_path.name if companion_file else None
-            ),
+            "companion_name_review": (companion_review_path.name if companion_file else None),
             "nist_structure_review": (nist_review_path.name if nist_archive else None),
         },
     }

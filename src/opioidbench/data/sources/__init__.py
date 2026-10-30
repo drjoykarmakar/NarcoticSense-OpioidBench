@@ -7,7 +7,7 @@ from opioidbench.data.sources.swgdrug import SWGDRUGMassSpecSource
 __all__ = [
     "DataSource",
     "ENFSIDWGMassSpecSource",
+    "SWGDRUGMassSpecSource",
     "SourceRegistry",
     "SourceSpec",
-    "SWGDRUGMassSpecSource",
 ]

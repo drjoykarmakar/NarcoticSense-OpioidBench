@@ -7,7 +7,6 @@ pytest.importorskip("rdkit")
 
 from opioidbench.chemistry.resolution import resolve_compound_sources
 
-
 SDF = """ethanol
   ChEBI
 

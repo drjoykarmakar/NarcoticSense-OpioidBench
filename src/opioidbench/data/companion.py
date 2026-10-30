@@ -475,9 +475,7 @@ def align_swgdrug_agilent_header(
     short_formulas = 0
     aligned: list[RawSpectrum] = []
 
-    for release_index, (spectrum, entry) in enumerate(
-        zip(spectra, entries, strict=True), start=1
-    ):
+    for release_index, (spectrum, entry) in enumerate(zip(spectra, entries, strict=True), start=1):
         tokens = list(entry.strings)
         position = 0
         expected_names = {
