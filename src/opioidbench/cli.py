@@ -790,7 +790,10 @@ def build_parser() -> argparse.ArgumentParser:
         "report", help="Validate local baseline outputs and export aggregate-only metrics"
     )
     reporting.add_argument(
-        "--run", action="append", required=True, metavar="PROTOCOL=DIRECTORY",
+        "--run",
+        action="append",
+        required=True,
+        metavar="PROTOCOL=DIRECTORY",
         help="Repeat for each protocol; reads only summary.json and fold_metrics.csv",
     )
     reporting.add_argument(
