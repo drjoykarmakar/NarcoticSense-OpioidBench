@@ -18,6 +18,8 @@ jobs:
           cache: pip
       - run: python -m pip install --upgrade pip
       - run: python -m pip install -e '.[dev]'
+      - name: Install RDKit
+        run: python -m pip install rdkit
       - run: ruff check .
       - run: ruff format --check .
       - run: pytest
