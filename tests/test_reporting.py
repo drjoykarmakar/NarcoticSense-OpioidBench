@@ -16,14 +16,21 @@ def make_run(path, *, corrupt=False):
     for model in MODELS:
         for fold in range(2):
             row = {
-                "model": model, "fold": fold, "n_train": 4, "n_test": 4,
-                "tn": 2, "fp": 0, "fn": 0, "tp": 2,
+                "model": model,
+                "fold": fold,
+                "n_train": 4,
+                "n_test": 4,
+                "tn": 2,
+                "fp": 0,
+                "fn": 0,
+                "tp": 2,
             }
             row.update({metric: 1.0 for metric in METRICS})
             rows.append(row)
         aggregate[model] = {
             f"{metric}_{stat}": (1.0 if stat == "mean" else 0.0)
-            for metric in METRICS for stat in ("mean", "std")
+            for metric in METRICS
+            for stat in ("mean", "std")
         }
     if corrupt:
         rows[0]["tp"] = 3
@@ -31,12 +38,20 @@ def make_run(path, *, corrupt=False):
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
-    (path / "summary.json").write_text(json.dumps({
-        "n_folds": 2, "n_samples": 8, "n_opioid": 4, "n_nonopioid": 4,
-        "aggregate": aggregate,
-        "predictions_file": "secret_predictions.csv",
-        "private_identifier": "must_not_escape",
-    }), encoding="utf-8")
+    (path / "summary.json").write_text(
+        json.dumps(
+            {
+                "n_folds": 2,
+                "n_samples": 8,
+                "n_opioid": 4,
+                "n_nonopioid": 4,
+                "aggregate": aggregate,
+                "predictions_file": "secret_predictions.csv",
+                "private_identifier": "must_not_escape",
+            }
+        ),
+        encoding="utf-8",
+    )
     (path / "predictions.csv").write_text("SECRET_COMPOUND_ID,restricted_spectrum\n")
     return path
 
