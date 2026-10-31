@@ -36,6 +36,27 @@ Implemented now:
 
 Not implemented yet: complete structure coverage, complete opioid/non-opioid taxonomy coverage, frozen final benchmark splits over the full intended label space, deep learning, OOD/open-set models, calibration, a sufficiently labeled ENFSI external test cohort, or manuscript-level final performance claims.
 
+## Project limitations and interpretation
+
+**Current scientific status: v0.4.0 evidence-curated pilot.** The v0.5.0 aggregate-only reporting *pipeline* is under development; it is not a validated v0.5.0 benchmark release.
+
+1. **Incomplete taxonomy and limited label coverage.** The SWGDRUG 3.14 inventory contains 3,801 conservative compound identities, but only 147 are evidence-curated opioid positives and 121 are source-defined non-opioid comparators. Another 222 are explicitly excluded under the target policy; **3,311 are unknown/pending and must not be treated as negative examples**. The pilot CV cohorts contain only 257–270 curated spectra, not the full source inventory.
+2. **Classical baseline models only.** The current evaluated models are spectral 1-NN, logistic regression, linear SVM, and random forest. Deep learning, advanced uncertainty quantification, calibration, and open-set/OOD detection remain future work; the project's broader goals are not implemented model claims.
+3. **Insufficient independent external validation.** The ENFSI feasibility screen yields just 23 unique identity/scaffold candidates after conservative de-leakage and deduplication: two source-backed opioid positives, 20 comparators, and one pending. This is **not a suitable basis for reliable external performance estimates** or forensic deployment claims.
+4. **Source libraries are user-supplied.** SWGDRUG and ENFSI source data are not bundled or automatically redistributed. Users must obtain legally authorized source files themselves and follow the local import instructions; source terms and access restrictions continue to apply.
+
+### Visual overview of pilot evidence
+
+![Taxonomy status: 3,311 pending, 147 opioid positive, 121 non-opioid comparator, 222 excluded](benchmarks/scaffold_cv5_mz500_review/taxonomy_coverage.svg)
+
+The figure shows conservative *compound identity* counts, not spectra counts. Unknown/pending compounds are neither confirmed non-opioids nor training negatives.
+
+![Scaffold five-fold pilot model performance, m/z max 500](benchmarks/scaffold_cv5_mz500_review/scaffold_cv5_model_metrics.svg)
+
+This second figure shows **unweighted fold means with population-standard-deviation error bars** from the uploaded scaffold-held-out pilot (257 curated spectra, five folds, m/z maximum **500**). The random-forest mean balanced accuracy is **0.8483** and AUROC **0.8594**. This is a **different preprocessing configuration** from the separately documented frozen **m/z max 700** pilot (scaffold random-forest balanced accuracy 0.850, AUROC 0.878). **Do not pool or interchange these two runs.** The m/z 500 scaffold audit also found nonzero opioid analogue-lineage overlap in every fold; scaffold holdout is not analogue-lineage holdout.
+
+See [the review-only scaffold pilot report](benchmarks/scaffold_cv5_mz500_review/README.md) for all four models, aggregate JSON/CSV, provenance limitations, and disclosure checks. These plots are descriptive pilot visualizations, **not external validation**. The data and figures are staged in a draft PR pending approval for public release.
+
 ## Installation
 
 ```bash

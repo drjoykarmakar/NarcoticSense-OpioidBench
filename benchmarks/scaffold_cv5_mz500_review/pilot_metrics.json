@@ -1,0 +1,136 @@
+{
+  "metric_aggregation": "unweighted mean and population std over held-out folds",
+  "pooled_confusion_note": "Confusion counts sum out-of-fold test predictions; pooled metrics may differ from fold-mean metrics.",
+  "protocols": {
+    "scaffold": {
+      "models": {
+        "linear_svm": {
+          "confusion_counts_pooled": {
+            "fn": 34,
+            "fp": 23,
+            "tn": 95,
+            "tp": 105
+          },
+          "metrics_mean": {
+            "accuracy": 0.7714386709084482,
+            "auroc": 0.7906301094266734,
+            "average_precision": 0.7842054755556543,
+            "balanced_accuracy": 0.7344380505825518,
+            "f1": 0.6944536065300684,
+            "mcc": 0.4957763570105108,
+            "precision": 0.7834076367389061,
+            "sensitivity": 0.6656152315998863,
+            "specificity": 0.8032608695652174
+          },
+          "metrics_std": {
+            "accuracy": 0.09380779519594408,
+            "auroc": 0.22899158565770228,
+            "average_precision": 0.19182149346895455,
+            "balanced_accuracy": 0.10754848076141874,
+            "f1": 0.22035993026021944,
+            "mcc": 0.20419074216246713,
+            "precision": 0.10805288649893044,
+            "sensitivity": 0.26383027613879356,
+            "specificity": 0.17146755877863767
+          }
+        },
+        "logistic_regression": {
+          "confusion_counts_pooled": {
+            "fn": 44,
+            "fp": 21,
+            "tn": 97,
+            "tp": 95
+          },
+          "metrics_mean": {
+            "accuracy": 0.7220623137908397,
+            "auroc": 0.7189393190588566,
+            "average_precision": 0.735064113932527,
+            "balanced_accuracy": 0.694046604148906,
+            "f1": 0.6260718632280499,
+            "mcc": 0.40378721193472494,
+            "precision": 0.7298594294204479,
+            "sensitivity": 0.5663540778630293,
+            "specificity": 0.8217391304347826
+          },
+          "metrics_std": {
+            "accuracy": 0.13041488222185538,
+            "auroc": 0.2597622308630405,
+            "average_precision": 0.21516752039814144,
+            "balanced_accuracy": 0.1333793345586607,
+            "f1": 0.22907974800092554,
+            "mcc": 0.27177604703047686,
+            "precision": 0.20162313964992817,
+            "sensitivity": 0.2426678055655065,
+            "specificity": 0.10455017618576588
+          }
+        },
+        "random_forest": {
+          "confusion_counts_pooled": {
+            "fn": 21,
+            "fp": 8,
+            "tn": 110,
+            "tp": 118
+          },
+          "metrics_mean": {
+            "accuracy": 0.8618214411957783,
+            "auroc": 0.8594469309462915,
+            "average_precision": 0.8615260908419842,
+            "balanced_accuracy": 0.8483304916169366,
+            "f1": 0.793173074162308,
+            "mcc": 0.72343773154569,
+            "precision": 0.8936134453781512,
+            "sensitivity": 0.7640522875816993,
+            "specificity": 0.9326086956521739
+          },
+          "metrics_std": {
+            "accuracy": 0.12074673317863611,
+            "auroc": 0.19691937277440805,
+            "average_precision": 0.1602566409653842,
+            "balanced_accuracy": 0.1343068765475852,
+            "f1": 0.22782914488833797,
+            "mcc": 0.23918498609631142,
+            "precision": 0.08654988972949881,
+            "sensitivity": 0.2789127141347766,
+            "specificity": 0.05620498385410236
+          }
+        },
+        "spectral_1nn": {
+          "confusion_counts_pooled": {
+            "fn": 21,
+            "fp": 33,
+            "tn": 85,
+            "tp": 118
+          },
+          "metrics_mean": {
+            "accuracy": 0.767608443165177,
+            "auroc": 0.7874211835542871,
+            "average_precision": 0.8251642835509496,
+            "balanced_accuracy": 0.7549978687127025,
+            "f1": 0.7238756015226604,
+            "mcc": 0.5283646100848195,
+            "precision": 0.7050101866572455,
+            "sensitivity": 0.7893435635123615,
+            "specificity": 0.7206521739130435
+          },
+          "metrics_std": {
+            "accuracy": 0.11409783702483825,
+            "auroc": 0.25933141631289813,
+            "average_precision": 0.17626732477290413,
+            "balanced_accuracy": 0.11901745229729298,
+            "f1": 0.21501619357133944,
+            "mcc": 0.23985472092788676,
+            "precision": 0.13950519196011643,
+            "sensitivity": 0.2895431739378516,
+            "specificity": 0.11081508560122756
+          }
+        }
+      },
+      "n_folds": 5,
+      "n_nonopioid": 118,
+      "n_opioid": 139,
+      "n_samples": 257
+    }
+  },
+  "schema_version": "1.0",
+  "status": "preliminary evidence-curated pilot; not externally validated"
+}
